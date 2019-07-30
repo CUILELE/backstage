@@ -1,0 +1,61 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+export default new VueRouter({
+    mode:'history',
+    routes:[
+        {
+            path:'',
+            name:'',
+            redirect:'/login'
+        },
+        {
+            path:'/login',
+            name:'login',
+            component:()=>import('../view/Login.vue'),
+        },
+        {
+            path:'/index',
+            name:'index',
+            component:()=>import('../view/index.vue'),
+            children:[
+                {
+                  path:'/index',
+                  redirect:'supplier'
+                },
+                {
+                    path:'supplier',
+                    name:'supplier',
+                    component:()=>import('../view/Supplier.vue'),
+                    meta:{title:'供应商管理',path:'supplier'},
+                },
+                {
+                    path:'supplieritem',
+                    name:'supplieritem',
+                    component:()=>import('../view/Supplieritem.vue'),
+                    meta:{title:['供应商管理','管理详情表'],path:['supplier','supplieritem']},
+                },
+                {
+                    path:'apiadmin',
+                    name:'apiadmin',
+                    component:()=>import('../view/Apiadmin.vue'),
+                    meta:{title:'接口类型管理',path:'apiadmin'}
+                },
+                {
+                    path:'examine',
+                    name:'examine',
+                    component:()=>import('../view/Examine.vue'),
+                    meta:{title:'子系统管理',path:'examine'}
+                },
+                {
+                    path:'count',
+                    name:'count',
+                    component:()=>import('../view/Count.vue'),
+                    meta:{title:'数据统计',path:'count'}
+                }
+            ]
+        }   
+    ]
+})
